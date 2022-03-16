@@ -102,3 +102,16 @@ age = input("How old are you:")
 age = int(age)
 year: int = (2022 - age) + 100
 print(name + " will be 100 years old in the year " + year.__str__())
+
+# Algorithm 8.2:
+# Step 1: Declare variable a = [1, 4, 9, 16, 25, 36, 49, 64, 81, 100].
+# Step 2: Make a new list that has only the even elements of this list in it.
+
+a = [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+
+even_list: list = []
+for item in a:
+    if item % 2 == 0:
+        even_list.append(item)
+
+print(even_list)
