@@ -21,7 +21,10 @@ def counting_sort(array: list[int]):
     for i in range(1, len(array)):
         count[array[i]] += 1
 
-    print(count)
+    for i in range(1, max(array)):
+        count[i] += count[i - 1]
 
 
-counting_sort(B)
+
+
+counting_sort(A)
