@@ -21,24 +21,17 @@ def counting_sort(array: list[int]):
     for i in array:
         count[i] += 1
 
-    for j in range(1, max(array)):
+    for j in range(1, max(array) + 1):
         count[j] += count[j - 1]
 
-    for k in range(len(array) - 1, 0, -1):
+    for k in range(len(array) - 1, -1, -1):
         output[count[array[k]] - 1] = array[k]
         count[array[k]] -= 1
-
-    #
-    # i = len(array) - 1
-    # while i > 0:
-    #     output[count[array[i]] - 1] = array[i]
-    #     count[array[i]] -= 1
-    #     i -= 1
 
     return output
 
 
-B.sort()
-print(B)
-print(counting_sort(B))
-assert counting_sort(B) == B
+A.sort()
+print(A)
+print(counting_sort(A))
+assert counting_sort(A) == A
