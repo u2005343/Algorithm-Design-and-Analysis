@@ -13,6 +13,8 @@ A: list[int] = [16, 30, 95, 51, 84, 23, 62, 44]
 
 B: list[int] = [1, 5, 7, 8, 6, 4, 7, 4, 4, 6, 2]
 
+C: list[int] = [121, 432, 564, 23, 1, 45, 788]
+
 
 def counting_sort(array: list[int]):
     output = [0] * (len(array))
@@ -31,7 +33,51 @@ def counting_sort(array: list[int]):
     return output
 
 
+def radix_sort(arr: list[int]):
+    def mod_counting_sort(a: list[int], d: int):
+        size: int = len(a)
+        output = [0] * size
+        count = [0] * (10)
+
+        for i in range(0, size):
+            index = arr[i] // d
+            count[index % 10] += 1
+
+        for j in range(1, 10):
+            count[j] += count[j - 1]
+
+
+        i = size - 1
+        while i >= 0:
+            index = a[i] // d
+            output[count[index % 10] - 1] = a[i]
+            count[index % 10] -= 1
+            i -= 1
+
+        # TODO: change this to simple copy
+        for f in range(0, size):
+            a[f] = output[f]
+
+    maximum = max(arr)
+
+    place = 1
+    while maximum // place > 0:
+        mod_counting_sort(arr, place)
+        place *= 10
+
+    return arr
+
+
+B.sort()
 A.sort()
-print(A)
-print(counting_sort(A))
-assert counting_sort(A) == A
+C.sort()
+
+assert counting_sort([16, 30, 95, 51, 84, 23, 62, 44]) == A
+assert counting_sort([1, 5, 7, 8, 6, 4, 7, 4, 4, 6, 2]) == B
+assert counting_sort([121, 432, 564, 23, 1, 45, 788]) == C
+
+assert radix_sort([16, 30, 95, 51, 84, 23, 62, 44]) == A
+assert radix_sort([1, 5, 7, 8, 6, 4, 7, 4, 4, 6, 2]) == B
+assert radix_sort([121, 432, 564, 23, 1, 45, 788]) == C
+
+
