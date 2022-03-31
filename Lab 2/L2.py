@@ -46,15 +46,11 @@ def radix_sort(arr: list[int]):
         for j in range(1, 10):
             count[j] += count[j - 1]
 
-
-        i = size - 1
-        while i >= 0:
+        for i in range(size - 1, -1, -1):
             index = a[i] // d
             output[count[index % 10] - 1] = a[i]
             count[index % 10] -= 1
-            i -= 1
-
-        # TODO: change this to simple copy
+        # Deep copy array (for some reason output.copy() won't give the same assert result)
         for f in range(0, size):
             a[f] = output[f]
 
@@ -79,5 +75,3 @@ assert counting_sort([121, 432, 564, 23, 1, 45, 788]) == C
 assert radix_sort([16, 30, 95, 51, 84, 23, 62, 44]) == A
 assert radix_sort([1, 5, 7, 8, 6, 4, 7, 4, 4, 6, 2]) == B
 assert radix_sort([121, 432, 564, 23, 1, 45, 788]) == C
-
-
