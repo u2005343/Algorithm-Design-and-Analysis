@@ -9,14 +9,14 @@ Provide the pseudocode, implement the algorithm using Python, explain the codes/
 
 """
 
-A: list[int] = [16, 30, 95, 51, 84, 23, 62, 44]
+A = [16, 30, 95, 51, 84, 23, 62, 44]
 
-B: list[int] = [1, 5, 7, 8, 6, 4, 7, 4, 4, 6, 2]
+B = [1, 5, 7, 8, 6, 4, 7, 4, 4, 6, 2]
 
-C: list[int] = [121, 432, 564, 23, 1, 45, 788]
+C = [121, 432, 564, 23, 1, 45, 788]
 
 
-def counting_sort(array: list[int]):
+def counting_sort(array):
     output = [0] * (len(array))
     count = [0] * (max(array) + 1)
 
@@ -33,8 +33,8 @@ def counting_sort(array: list[int]):
     return output
 
 
-def radix_sort(arr: list[int]):
-    def mod_counting_sort(a: list[int], d: int):
+def radix_sort(arr):
+    def mod_counting_sort(a, d: int):
         size: int = len(a)
         output = [0] * size
         count = [0] * (10)
@@ -63,9 +63,42 @@ def radix_sort(arr: list[int]):
 
     return arr
 
+# Python3 program for implementation of Shell Sort
 
-B.sort()
+def shellSort(arr):
+    gap = len(arr) // 2  # initialize the gap
+
+    while gap > 0:
+        i = 0
+        j = gap
+
+        # check the array in from left to right
+        # till the last possible index of j
+        while j < len(arr):
+
+            if arr[i] > arr[j]:
+                arr[i], arr[j] = arr[j], arr[i]
+
+            i += 1
+            j += 1
+
+
+            # now, we look back from ith index to the left
+            # we swap the values which are not in the right order.
+            k = i
+            while k - gap > -1:
+
+                if arr[k - gap] > arr[k]:
+                    arr[k - gap], arr[k] = arr[k], arr[k - gap]
+                k -= 1
+
+        gap //= 2
+    return arr
+
+
+
 A.sort()
+B.sort()
 C.sort()
 
 assert counting_sort([16, 30, 95, 51, 84, 23, 62, 44]) == A
@@ -75,3 +108,7 @@ assert counting_sort([121, 432, 564, 23, 1, 45, 788]) == C
 assert radix_sort([16, 30, 95, 51, 84, 23, 62, 44]) == A
 assert radix_sort([1, 5, 7, 8, 6, 4, 7, 4, 4, 6, 2]) == B
 assert radix_sort([121, 432, 564, 23, 1, 45, 788]) == C
+
+assert shellSort([16, 30, 95, 51, 84, 23, 62, 44]) == A
+assert shellSort([1, 5, 7, 8, 6, 4, 7, 4, 4, 6, 2]) == B
+assert shellSort([121, 432, 564, 23, 1, 45, 788]) == C
